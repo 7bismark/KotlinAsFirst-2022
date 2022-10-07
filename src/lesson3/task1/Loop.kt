@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson7.task1.top20Words
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -17,7 +18,7 @@ import kotlin.math.sqrt
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -72,7 +73,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    if (n == 0) return 1
+    var count = n
+    var x = 0
+    while (count > 0) {
+        x += 1
+        count /= 10
+    }
+return x
+}
 
 /**
  * Простая (2 балла)
@@ -80,7 +90,17 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var x1 = 1
+    var x2 = 1
+    var x3 = 1
+    for (i in 3..n) {
+        x3 = x1 + x2
+        x2 = x1
+        x1 = x3
+    }
+    return x3
+}
 
 /**
  * Простая (2 балла)
@@ -138,7 +158,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var n = n
+    var x = 0
+    while (n > 0) {
+        x = x * 10 + n % 10
+        n /= 10
+    }
+    return x
+}
 
 /**
  * Средняя (3 балла)
@@ -149,7 +177,7 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
@@ -159,7 +187,14 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var m = n / 10
+    while (m > 0) {
+        if (m % 10 != n % 10) return true
+        else m /= 10
+    }
+    return false
+}
 
 /**
  * Средняя (4 балла)
