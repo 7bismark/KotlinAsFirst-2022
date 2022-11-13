@@ -81,7 +81,7 @@ fun digitNumber(n: Int): Int {
         x += 1
         count /= 10
     }
-return x
+    return x
 }
 
 /**

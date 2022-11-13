@@ -120,14 +120,20 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
-
+fun abs(v: List<Double>): Double = when { v.isEmpty() -> 0.0
+    else -> Math.sqrt(v.map { it * it }.sum())
+}
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double =
+    when {
+        list.isEmpty() -> 0.0
+        else -> list.sum() / list.size
+    }
+
 
 /**
  * Средняя (3 балла)
@@ -137,7 +143,17 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> =
+    when {list.isEmpty() -> list
+        else -> {
+            var res = mean(list)
+            for (qw in 0 until list.size )
+            {
+                list[qw] -= res
+            }
+            list
+        }
+    }
 
 /**
  * Средняя (3 балла)
@@ -146,7 +162,16 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int =
+    when {
+        a.isEmpty() || b.isEmpty() -> 0
+        else -> {
+            var res = 0
+            for (qw in 0 until a.size)
+                res += a[qw] * b[qw]
+            res //return
+        }
+    }
 
 /**
  * Средняя (3 балла)
@@ -177,7 +202,19 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var div = 2
+    var Copy = n
+    val list = mutableListOf<Int>()
+    while (Copy > 1) {
+        if (Copy % div == 0) {
+            Copy /= div
+            list.add(div)
+        } else
+            div++
+    }
+    return list
+}
 
 /**
  * Сложная (4 балла)
@@ -186,7 +223,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя (3 балла)
@@ -231,6 +268,7 @@ fun decimal(digits: List<Int>, base: Int): Int = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
+
 fun decimalFromString(str: String, base: Int): Int = TODO()
 
 /**

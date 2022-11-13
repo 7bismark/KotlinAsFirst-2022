@@ -94,8 +94,8 @@ fun timeForHalfWay(
 ): Double {
     val polPuti = (t1 * t2 + t1 * v2 + t3 * v3)/2
     return when {
-        (t1 * t1 >= polPuti) -> polPuti/v1
-        (t1 * v1 + t2 * v2 >= polPuti) -> t1 + (polPuti - t1 * v1) / 2
+        t1 * t1 >= polPuti -> polPuti/v1
+        t1 * v1 + t2 * v2 >= polPuti -> t1 + (polPuti - t1 * v1) / 2
         else -> t1 + t2 + (polPuti - t1* v1 - t2 * v2) / 3
     }
 }
@@ -151,8 +151,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 
     val y: Double
     val d: Double
-    val x: Double = max(max(a, b), c)
-    val z: Double = min(min(a, b), c)
+    val x: Double = maxOf(a, b, c)
+    val z: Double = minOf(a, b, c)
     y = (a + b + c) - x - z
 
     if (x >= y + z)
