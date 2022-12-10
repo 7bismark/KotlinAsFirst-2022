@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.time.YearMonth
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +76,46 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val month = when {
+        str.contains("января") -> "01"
+        str.contains("февраля") -> "02"
+        str.contains("марта") -> "03"
+        str.contains("апреля") -> "04"
+        str.contains("мая") -> "05"
+        str.contains("июня") -> "06"
+        str.contains("июля") -> "07"
+        str.contains("августа") -> "08"
+        str.contains("сентября") -> "09"
+        str.contains("октября") -> "10"
+        str.contains("ноября") -> "11"
+        str.contains("декабря") -> "12"
+        else -> return ""
+    }
+
+    val year = str.substring(str.lastIndexOf(" ") + 1, str.length)
+    val day = str.substring(0, str.indexOf(" "))
+
+    val yearMonthObject = YearMonth.of(Integer.parseInt(year), Integer.parseInt(cutDay(month)))
+    val daysInMonth = yearMonthObject.lengthOfMonth()
+
+    if (Integer.parseInt(cutDay(day)) > daysInMonth) {
+        return ""
+    }
+
+
+    return "${addZeroToDay(day)}.$month.$year"
+
+}
+
+private fun addZeroToDay(day: String): String {
+    if (day.length >= 2) return day
+    return "0$day"
+}
+
+private fun cutDay(day: String): String {
+    return if (day.first() == '0') day.substring(1) else day
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +127,41 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    if (digital.toCharArray().filter { it == '.' }.size != 2) return ""
+
+    val day = digital.substring(0, digital.indexOf("."))
+    val monthDigital = digital.substring(digital.indexOf(".") + 1, digital.lastIndexOf("."))
+    val year = digital.substring(digital.lastIndexOf(".") + 1, digital.length)
+
+    try {
+        val yearMonthObject = YearMonth.of(Integer.parseInt(year), Integer.parseInt(cutDay(monthDigital)))
+        val daysInMonth = yearMonthObject.lengthOfMonth()
+        if (Integer.parseInt(cutDay(day)) > daysInMonth) {
+            return ""
+        }
+    }catch (e:Throwable){
+        return ""
+    }
+
+    val month = when (Integer.parseInt(monthDigital)) {
+        1 -> "января"
+        2 -> "февраля"
+        3 -> "марта"
+        4 -> "апреля"
+        5 -> "мая"
+        6 -> "июня"
+        7 -> "июля"
+        8 -> "августа"
+        9 -> "сентября"
+        10 -> "октября"
+        11 -> "ноября"
+        12 -> "декабря"
+        else -> return ""
+    }
+
+    return "${cutDay(day)} $month $year"
+}
 
 /**
  * Средняя (4 балла)
@@ -162,7 +237,22 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    try {
+        val productList = description.split("; ")
+        val productMap = mutableMapOf<String,Double>()
+        productList.forEach {
+            productMap.put(it.substring(0,it.indexOf(" ")), it.substring(it.indexOf(" ") +1 ).toDouble())
+        }
+        val maxValue = productMap.values.maxOrNull() // or max() depending on Kotlin version
+        val maxEntries = productMap.filterValues { it == maxValue }
+        return maxEntries.keys.first()
+    }catch (e:Throwable){
+        return ""
+    }
+    return ""
+
+}
 
 /**
  * Сложная (6 баллов)
