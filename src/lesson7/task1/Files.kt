@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.util.*
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -113,7 +114,35 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    //dsddsdsdsd//
+    //    ds
+    try {
+        val inoutLines = mutableListOf<String>()
+        for (line in File(inputName).readLines()) {
+            inoutLines.add(line.trim())
+        }
+        val maxHalf = inoutLines.map { it.length }.max() / 2
+        val resultList = mutableListOf<String>()
+        inoutLines
+            .forEach {
+                val halfLine = it.length / 2
+                val valueToMid = maxHalf - halfLine
+                if (valueToMid < 1) {
+                    resultList.add(it)
+                } else {
+                    resultList.add(" ".repeat(valueToMid) + it)
+                }
+            }
+        val writer = File(outputName).bufferedWriter()
+        resultList.forEachIndexed { index, value ->
+            if (index > 0) writer.newLine()
+            writer.write(value)
+        }
+
+        writer.close()
+    } catch (e: Throwable) {
+
+    }
 }
 
 /**
@@ -233,7 +262,32 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    try {
+        val set = mutableSetOf<String>()
+        for (line in File(inputName).readLines()) {
+            set.add(line)
+        }
+        val max = set.map { it.length }.max()
+        val resultSet = set
+            .filter { checkIsReplayNot(it) }
+            .also {
+                it
+            }
+            .filter { it.length == max }
+        var resultString = resultSet.first()
+        if (resultSet.size > 1) {
+            resultString = resultSet.reduce { sum, newLine -> "$sum, $newLine" }
+        }
+        val writer = File(outputName).bufferedWriter()
+        writer.write(resultString)
+        writer.close()
+    } catch (e: Throwable) {
+
+    }
+}
+
+private fun checkIsReplayNot(string: String): Boolean {
+    return string.length != string.lowercase(Locale.getDefault()).split("").toSet().size
 }
 
 /**
@@ -268,15 +322,15 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  *
  * Соответствующий выходной файл:
 <html>
-    <body>
-        <p>
-            Lorem ipsum <i>dolor sit amet</i>, consectetur <b>adipiscing</b> elit.
-            Vestibulum lobortis. <s>Est vehicula rutrum <i>suscipit</i></s>, ipsum <s>lib</s>ero <i>placerat <b>tortor</b></i>.
-        </p>
-        <p>
-            Suspendisse <s>et elit in enim tempus iaculis</s>.
-        </p>
-    </body>
+<body>
+<p>
+Lorem ipsum <i>dolor sit amet</i>, consectetur <b>adipiscing</b> elit.
+Vestibulum lobortis. <s>Est vehicula rutrum <i>suscipit</i></s>, ipsum <s>lib</s>ero <i>placerat <b>tortor</b></i>.
+</p>
+<p>
+Suspendisse <s>et elit in enim tempus iaculis</s>.
+</p>
+</body>
 </html>
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)

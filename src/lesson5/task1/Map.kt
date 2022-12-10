@@ -117,7 +117,7 @@ fun buildGrades(grades: Map<String, Int>):  Map<Int, List<String>> {
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for ((key, value) in a) if (value != b[key]) return false
     return true
-
+}
     /**
      * Простая (2 балла)
      *
@@ -309,4 +309,3 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
      *   ) -> emptySet()
      */
     fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
-}
