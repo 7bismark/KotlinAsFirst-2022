@@ -1,10 +1,10 @@
 import lesson6.task1.dateDigitToStr
 import lesson6.task1.dateStrToDigit
 import lesson6.task1.mostExpensive
+import lesson7.task1.chooseLongestChaoticWord
 
 fun main(args: Array<String>) {
 
-    val result = mostExpensive("Хлеб 39.9; Молоко 62; Курица 184.0; Конфеты 89.9")
-    result
+    val result = chooseLongestChaoticWord("input/chaotic_in1.txt" , "temp.txt")
 
 }
