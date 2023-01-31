@@ -191,7 +191,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
      *     "печенье"
      *   ) -> "Мария"
      */
-    fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+    fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String = TODO()
 
     /**
      * Средняя (3 балла)
@@ -285,7 +285,11 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
      *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
      *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
      */
-    fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+    fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+        for (i in list.indices) if ((number - list[i] in list) && (i != list.indexOf(number - list[i])))
+            return Pair(minOf(i, list.indexOf(number - list[i])), maxOf(i, list.indexOf(number - list[i])))
+        return Pair(-1, -1)
+    }
 
     /**
      * Очень сложная (8 баллов)

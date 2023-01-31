@@ -141,7 +141,9 @@ fun centerFile(inputName: String, outputName: String) {
 
         writer.close()
     } catch (e: Throwable) {
-
+        val writer = File(outputName).bufferedWriter()
+        writer.write("")
+        writer.close()
     }
 }
 
@@ -282,6 +284,9 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
         writer.write(resultString)
         writer.close()
     } catch (e: Throwable) {
+        val writer = File(outputName).bufferedWriter()
+        writer.write("")
+        writer.close()
 
     }
 }
