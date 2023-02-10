@@ -270,13 +270,10 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String)
         for (line in File(inputName).readLines()) {
             inputList.add(line)
         }
-        val max = inputList.map { it.length }.max()
-        val resultSet = inputList
+        var resultSet = inputList
             .filter { checkIsReplayNot(it) }
-            .also {
-                it
-            }
-            .filter { it.length == max }
+        val max = resultSet.map { it.length }.max()
+        resultSet = resultSet.filter { it.length == max }
         var resultString = resultSet.first()
         if (resultSet.size > 1) {
             resultString = resultSet.reduce { sum, newLine -> "$sum, $newLine" }
@@ -292,7 +289,7 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String)
 }
 
 private fun checkIsReplayNot(string: String): Boolean {
-    return string.length == string.split("").toSet().filter { it.isNotBlank() }.size
+    return string.length == string.toLowerCase().toSet().size
 }
 
 /**
