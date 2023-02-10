@@ -125,10 +125,14 @@ fun centerFile(inputName: String, outputName: String)  {
             .forEach {
                 val halfLine = it.length / 2
                 val valueToMid = maxHalf - halfLine
-                if (valueToMid <= 1) {
+                if (valueToMid < 1) {
                     resultList.add(it)
                 } else {
-                    resultList.add(" ".repeat(valueToMid) + it)
+                    if ((valueToMid + it.length) / 2 == maxHalf) {
+                        resultList.add(it)
+                    } else {
+                        resultList.add(" ".repeat(valueToMid) + it)
+                    }
                 }
             }
         val writer = File(outputName).bufferedWriter()
