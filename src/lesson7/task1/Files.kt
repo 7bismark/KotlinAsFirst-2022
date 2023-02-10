@@ -113,9 +113,7 @@ fun sibilants(inputName: String, outputName: String) {
  * 4) Число строк в выходном файле должно быть равно числу строк во входном (в т. ч. пустых)
  *
  */
-fun centerFile(inputName: String, outputName: String) {
-    //dsddsdsdsd//
-    //    ds
+fun centerFile(inputName: String, outputName: String)  {
     try {
         val inoutLines = mutableListOf<String>()
         for (line in File(inputName).readLines()) {
@@ -127,7 +125,7 @@ fun centerFile(inputName: String, outputName: String) {
             .forEach {
                 val halfLine = it.length / 2
                 val valueToMid = maxHalf - halfLine
-                if (valueToMid < 1) {
+                if (valueToMid <= 1) {
                     resultList.add(it)
                 } else {
                     resultList.add(" ".repeat(valueToMid) + it)
@@ -141,9 +139,7 @@ fun centerFile(inputName: String, outputName: String) {
 
         writer.close()
     } catch (e: Throwable) {
-        val writer = File(outputName).bufferedWriter()
-        writer.write("")
-        writer.close()
+
     }
 }
 
